@@ -1,26 +1,50 @@
-import React from 'react';
+import React , { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import SimpleBottomNavigation from './Components/NavigationBar'
+import Divider from '@material-ui/core/Divider';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import { ChuyingTestPage } from './Pages/Chuying'
+import { JiayiTestPage } from './Pages/Jiayi'
+import { JayTestPage } from './Pages/Jay'
+export function App() {
 
-function App() {
+  const redirectChuying =() => {
+    window.location.href = '/Chuying'
+  }
+
+  const redirectJiayi =() => {
+    window.location.href = '/Jiayi'
+  }
+
+  const redirectJay =() => {
+    window.location.href ='/Jay'
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Router>
+       <SimpleBottomNavigation redirectChuying = { redirectChuying } redirectJay = {redirectJay} redirectJiayi ={ redirectJiayi}/>
+        <Divider/>
+       <Switch>
+       <Route path = "/Chuying">
+         <ChuyingTestPage/>
+       </Route>
+       <Route path = "/Jiayi">
+        <JiayiTestPage/>
+       </Route>
+       <Route path = '/Jay'>
+         <JayTestPage/>
+      </Route>
+     </Switch>
+     </Router>
+     
     </div>
   );
 }
 
-export default App;
