@@ -40,6 +40,7 @@ export function Login ( props ) {
   const handleLogin = () => {
      // hardcode user and password 
      //Todo: send post request tp authentificate user 
+     console.log('Im here')
      const user = 'micky';
      const password = '123456'
      if( userName === user && psw === password ){
@@ -50,7 +51,7 @@ export function Login ( props ) {
   }
 
    return(
-    <Container container style = {{ textAlign: 'center'}}>
+    <Container style = {{ textAlign: 'center'}}>
       <Grid>Login to continue...</Grid>
       <Grid style ={{ display: 'flex', position: 'relative', marginTop:"5%", margin:'5%', alignItems: 'center',paddingLeft: '12%'}}>
         <FontAwesomeIcon icon = {faUser } style={{margin : '5px'}}/>
@@ -69,7 +70,7 @@ export function Login ( props ) {
         <Grid>Rememer Me</Grid>
       </Grid>  
       <Grid style ={{margin:'5%', alignItems: 'center'}}>
-          <Button variant= "contained" color= "primary" onCLick={handleLogin} style = {{ width: '150px',backgroundColor:"#9e9e9e"}}>
+          <Button variant= "contained" color= "primary" onClick={handleLogin} style = {{ width: '150px',backgroundColor:"#9e9e9e"}}>
               Login
           </Button>   
       </Grid>
@@ -77,7 +78,8 @@ export function Login ( props ) {
           <hr style={{ width:"40%"}} />
           <p>or Login with</p>
           <hr style={{ width:"40%"}} />
-      </Grid>         
+      </Grid>  
+      <div>{Err}</div>       
     </Container>
    ); 
 }
