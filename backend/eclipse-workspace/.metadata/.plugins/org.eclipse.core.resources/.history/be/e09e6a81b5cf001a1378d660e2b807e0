@@ -1,0 +1,6 @@
+package external;
+
+public class GeoHash {
+	private static final String BASE_32 = "0123456789bcdefghjkmnpqrstuvwxyz";
+	
+}

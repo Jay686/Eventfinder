@@ -1,0 +1,49 @@
+package external;
+
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class TicketMasterAPI {
+	private static final String URL = "https://app.ticketmaster.com/discovery/v2/events.json";
+	private static final String DEFAULT_KEYWORD = ""; // no restriction
+	private static final String API_KEY = "	MXtQ0WalKGTMmHcq18LuWGAzyrWXd3UV"; // avoid malicious visiting
+
+	public JSONArray search(double lat, double lon, String keyword) {
+		if (keyword == null) {
+			keyword = DEFAULT_KEYWORD;
+		}
+
+		try {
+			keyword = java.net.URLEncoder.encode(keyword, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		String geoHash = GeoHash.encodeGeohash(lat, lon, 8);
+
+		String query = String.format("apikey=%s&geoPoint=%s&keyword=%s&radius=%s", API_KEY, geoHash, keyword, 50);
+
+		try {
+			HttpURLConnection connection = (HttpURLConnection) new URL(URL + "?" + query).openConnection();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// set a internal debug function
+	private void queryAPI(double lat, double lon) {
+		JSONArray events = search(lat, lon, null);
+		try {
+			for (int i = 0; i < events.length(); i++) {
+				JSONObject event = events.getJSONObject(i);
+				System.out.println(event);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+}
